@@ -13,8 +13,12 @@
     die("Error: Connection failed: " . $conn->connect_error);
   }
 
+  if (!$conn->set_charset("utf8mb4")) {
+    die("Error: Cannot change charset: " . $conn->error);
+  }
+
   // Create the database, handle any errors
-  $sql = "CREATE DATABASE IF NOT EXISTS zaton";
+  $sql = "CREATE DATABASE IF NOT EXISTS zaton CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci";
   if ($conn->query($sql) != TRUE)
     die("Error: Cannot create database: " . $conn->error);
   
@@ -25,13 +29,13 @@
   // Create the reviews table, handle any errors
   $sql = "CREATE TABLE IF NOT EXISTS reviews(
     id INT UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    public BIT NOT NULL DEFAULT 0,
-    date DATETIME NOT NULL DEFAULT (CURRENT_DATE),
+    public TINYINT NOT NULL DEFAULT 0,
+    date DATETIME NOT NULL DEFAULT (CURRENT_TIMESTAMP),
     username VARCHAR(64) NOT NULL,
     email VARCHAR(64) NOT NULL DEFAULT \"\",
-    phone INT NOT NULL DEFAULT 0,
+    phone BIGINT NOT NULL DEFAULT 0,
     review TEXT NOT NULL,
-    rating TINYINT NOT NULL)";
+    rating TINYINT UNSIGNED NOT NULL) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci";
   if ($conn->query($sql) != TRUE)
     die("Error: Cannot create table: " . $conn->error);
   
