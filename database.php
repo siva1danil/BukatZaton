@@ -1,10 +1,10 @@
 <?php
   // Load credentials
-  if (!file_exists("database_credentials.php"))
-    die("Error: Create a file <database_credentials.php> defining the following variables: <\$HOSTNAME / \$USERNAME / \$PASSWORD>");
-  include "database_credentials.php";
+  if (!file_exists("config.php"))
+    die("Error: Create a file <config.php> defining the following variables: <\$HOSTNAME / \$USERNAME / \$PASSWORD>");
+  include "config.php";
   if (!isset($HOSTNAME) || !isset($USERNAME) || !isset($PASSWORD))
-    die("Error: define <\$HOSTNAME / \$USERNAME / \$PASSWORD> in your <database_credentials.php>");
+    die("Error: define <\$HOSTNAME / \$USERNAME / \$PASSWORD> in your <config.php>");
   
   // Connect to MySQL, handle any errors
   $conn = new mysqli($HOSTNAME, $USERNAME, $PASSWORD);
