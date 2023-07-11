@@ -55,7 +55,7 @@
         <aside class="left-sidebar">
           <nav>
            <ul>
-              <li><a href="index.html" target="_blank">Главная</a></li>
+              <li><a href="index.php" target="_blank">Главная</a></li>
               <li><a href="ResponsiveImageGallery 2/galery.html">Путин рыбалка в верховьях енисея</a></li>
               <li><a href="ResponsiveImageGallery/galery.html">Фото галерея</a></li>
               <li><a href="links.html" target="_blank">Видео</a></li>
@@ -131,27 +131,20 @@
   <div style="clear:both"></div>
   <div class="wrapper">
     <div class="oth_title">Отзывы</div>
+    <?php
+      include "database.php";
+    ?>
     <ul class="bxslider">
-      <li>
-        <p class="otz_p1">Арбузова Светлана</p>
-        <p class="otz_p2">Очень довольна работой.</p>
-        <p class="otz_p3">18.02.14 Ездили отдохнуть и порыбачить,14-16 февраля на турбазу.Домики на 2 и 4 человека, кровати,чистое постельное белье,есть кухня,газ,посуда.Свет имеется тоже,стоят солнечные батареи.В домиках стоят печки -буржуйки,заводские,но зимой топить нужно постоянно и все время смотреть чтоб было тепло. </p>
-      </li>
-      <li>
-        <p class="otz_p1">Смолякова Ирина</p>
-        <p class="otz_p2">Очень благодарны</p>
-        <p class="otz_p3">В этом году мы были первыми отдыхающими.Очень понравилось,погода была хорошая,тепло,снег чистый и белый,воздух как хрусталь. </p>
-      </li>
-      <li>
-        <p class="otz_p1">Арбузова Светлана</p>
-        <p class="otz_p2">Очень довольна работой.</p>
-        <p class="otz_p3">Рыбалка правда была не очень, 8 окуньков небольших,потом правда знакомые сказали,что нужно ехать в марте,когда будет теплее и тогда и рыбалка будет отличная.В основном едут отдыхать весна,лето,осень. </p>
-      </li>
-      <li>
-        <p class="otz_p1">Смолякова Ирина</p>
-        <p class="otz_p2">Очень благодарны</p>
-        <p class="otz_p3">Дорога по зимнику хорошая,только надо быть аккуратным,крутые повороты,спуски подъемы тоже приличные,ехать так чтоб доехать туда и обратно живым и здоровым,шумахерам не место. </p>
-      </li>
+      <?php
+        $reviews = get_reviews(true);
+        for($i = 0; $i < count($reviews); $i++) {
+          printf("<li>");
+          printf('<p class="otz_p1">%s</p>', $reviews[$i]["date"]);
+          printf('<p class="otz_p2">%s</p>', $reviews[$i]["username"]);
+          printf('<p class="otz_p3">%s</p>', $reviews[$i]["review"]);
+          printf("</li>");
+        }
+      ?>
     </ul>
   </div>
   <div style="clear:both"></div>
