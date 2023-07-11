@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+		
+		<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<url>
+	<loc>http://zaton.tuva.ru/</loc>
+	<lastmod>2016-09-22T09:09:03+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>http://zaton.tuva.ru/index.html</loc>
+	<lastmod>2016-09-22T09:09:04+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>http://zaton.tuva.ru/ResponsiveImageGallery/galery.html</loc>
+	<lastmod>2016-09-22T09:09:05+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>http://zaton.tuva.ru/links.html</loc>
+	<lastmod>2016-09-22T09:09:05+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>http://zaton.tuva.ru/reviews.html</loc>
+	<lastmod>2016-09-22T09:09:06+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>http://zaton.tuva.ru/price.html</loc>
+	<lastmod>2016-09-22T09:09:07+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>http://zaton.tuva.ru/cont.html</loc>
+	<lastmod>2016-09-22T09:09:07+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+</urlset>
