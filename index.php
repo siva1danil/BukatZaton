@@ -13,6 +13,7 @@
   <script src="demo.click5.ru/templates/15/bxslider/jquery.bxslider.min.js"></script>
   <link href="demo.click5.ru/templates/15/bxslider/jquery.bxslider.css" rel="stylesheet" />
 	<link href="demo.click5.ru/templates/15/style.css" rel="stylesheet" />
+  <link href="/res/style.css" rel="stylesheet" />
   <script>
   $(document).ready(function(){
     $('.bxslider').bxSlider({
@@ -132,7 +133,8 @@
   <div class="wrapper">
     <div class="oth_title">Отзывы</div>
     <?php
-      include "database.php";
+      include "lib/database.php";
+      if(init() == NULL) {
     ?>
     <ul class="bxslider">
       <?php
@@ -146,6 +148,16 @@
         }
       ?>
     </ul>
+    <div class="reviews-add-container">
+      <a href="/" class="reviews-add">Написать отзыв</a>
+    </div>
+    <div class="reviews-add-form">
+    </div>
+    <?php
+      } else {
+        printf("<p class='error-text'>Не удалось загрузить отзывы, повторите попытку позже.</p>");
+      }
+    ?>
   </div>
   <div style="clear:both"></div>
   <div class="wrapper">

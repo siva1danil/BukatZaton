@@ -1,0 +1,21 @@
+.reviews-add-container {
+    text-align: center;
+    margin: 0 0 40px 0;
+}
+.reviews-add {
+    padding: 10px;
+    font-size: 17px;
+    border-radius: 7px;
+    background: linear-gradient(to bottom, #ffd000 0%,#ffb000 100%);
+    color: #ffffff;
+    text-decoration: none;
+}
+.reviews-add:hover {
+    background: linear-gradient(to bottom, #eabf00 0%,#e59900 100%);;
+}
+.error-text {
+    display: block;
+    font-size: 16px;
+    color: #505050;
+    margin: 0 0 40px 0;
+}
