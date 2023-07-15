@@ -134,11 +134,12 @@
     <div class="oth_title">Отзывы</div>
     <?php
       include "lib/database.php";
-      if(init() == NULL) {
+      if (init() == NULL) {
+        $reviews = get_reviews(false);
+        if (count($reviews) > 0) {
     ?>
     <ul class="bxslider">
       <?php
-        $reviews = get_reviews(true);
         for($i = 0; $i < count($reviews); $i++) {
           printf("<li>");
           printf('<p class="otz_p1">%s</p>', $reviews[$i]["date"]);
@@ -148,14 +149,51 @@
         }
       ?>
     </ul>
+    <?php
+      } else print("<p class='error-text'>Отзывов еще нет.</p>");
+    ?>
     <div class="reviews-add-container">
       <a href="/" class="reviews-add">Написать отзыв</a>
     </div>
     <div class="reviews-add-form">
+      <form action='/' method='post'>
+        <table class="reviews-add-form-table">
+          <tr>
+              <td class="reviews-add-form-inputname">Ваше имя:</td>
+              <td><input class="reviews-add-form-smallinput" type="text"></td>
+          </tr>
+          <tr>
+              <td class="reviews-add-form-inputname">E-Mail (необязательно):</td>
+              <td><input class="reviews-add-form-smallinput" type="text"></td>
+          </tr>
+          <tr>
+              <td class="reviews-add-form-inputname">Телефон (необязательно):</td>
+              <td><input class="reviews-add-form-smallinput" type="text"></td>
+          </tr>
+          <tr>
+              <td class="reviews-add-form-inputname">Оценка:</td>
+              <td>
+                <div class="reviews-add-form-stars">
+                  <input type="radio" id="reviews-add-form-star5" name="rate" value="5" checked /><label for="reviews-add-form-star5">★</label>
+                  <input type="radio" id="reviews-add-form-star4" name="rate" value="4" /><label for="reviews-add-form-star4">★</label>
+                  <input type="radio" id="reviews-add-form-star3" name="rate" value="3" /><label for="reviews-add-form-star3">★</label>
+                  <input type="radio" id="reviews-add-form-star2" name="rate" value="2" /><label for="reviews-add-form-star2">★</label>
+                  <input type="radio" id="reviews-add-form-star1" name="rate" value="1" /><label for="reviews-add-form-star1">★</label>
+                </div>
+              </td>
+          </tr>
+        </table>
+        <textarea class="reviews-add-form-biginput" placeholder="Текст отзыва" rows="5"></textarea>
+
+        <div class="reviews-add-form-bottombar">
+          <span class="reviews-add-form-comment">Ваш отзыв будет опубликован сразу после прохождения модерации</span>
+          <input class="reviews-add-form-button" type="submit"></input>
+        </div>
+      </form>
     </div>
     <?php
       } else {
-        printf("<p class='error-text'>Не удалось загрузить отзывы, повторите попытку позже.</p>");
+        print("<p class='error-text'>Не удалось загрузить отзывы, повторите попытку позже.</p>");
       }
     ?>
   </div>

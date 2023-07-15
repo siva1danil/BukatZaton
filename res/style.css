@@ -13,9 +13,76 @@
 .reviews-add:hover {
     background: linear-gradient(to bottom, #eabf00 0%,#e59900 100%);;
 }
+.reviews-add-form {
+    box-sizing: border-box;
+    width: 836px;
+    margin: 0 auto 40px auto;
+    padding: 20px;
+    border-radius: 8px;
+    background: #ececec;
+}
+.reviews-add-form-table {
+    width: 100%;
+}
+.reviews-add-form-table td {
+    padding-bottom: 5px;
+}
+.reviews-add-form-inputname {
+    width: 1px;
+    white-space: nowrap;
+    padding: 0 20px 0 0;
+}
+.reviews-add-form-smallinput {
+    width: 100%;
+    box-sizing: border-box;
+}
+.reviews-add-form-biginput {
+    width: 100%;
+    box-sizing: border-box;
+    resize: none;
+}
 .error-text {
     display: block;
     font-size: 16px;
     color: #505050;
     margin: 0 0 40px 0;
+}
+
+.reviews-add-form-stars {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: flex-end;
+    justify-content: left;
+    user-select: none;
+}
+
+.reviews-add-form-stars > input {
+    flex: 0 0 0px;
+    display: none;
+}
+
+.reviews-add-form-stars > label {
+    font-size: 25px;
+    color: #868686;
+}
+
+.reviews-add-form-stars > input:hover ~ label {
+    color: #c59b08;
+}
+
+.reviews-add-form-stars > input:checked ~ label {
+    color: #ffc700;
+}
+
+.reviews-add-form-bottombar {
+    display: flex;
+}
+
+.reviews-add-form-comment {
+    flex: 1 1 100%;
+    color: #777777;
+}
+
+.reviews-add-form-button {
+    color: #000000;
 }
