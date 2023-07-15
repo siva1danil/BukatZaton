@@ -14,6 +14,7 @@
   <link href="demo.click5.ru/templates/15/bxslider/jquery.bxslider.css" rel="stylesheet" />
 	<link href="demo.click5.ru/templates/15/style.css" rel="stylesheet" />
   <link href="/res/style.css" rel="stylesheet" />
+  <script src="/res/script.js"></script>
   <script>
   $(document).ready(function(){
     $('.bxslider').bxSlider({
@@ -133,8 +134,8 @@
   <div class="wrapper">
     <div class="oth_title">Отзывы</div>
     <?php
-      include "lib/database.php";
-      if (init() == NULL) {
+      include (__DIR__ . "/lib/database.php");
+      if (is_null(init())) {
         $reviews = get_reviews(false);
         if (count($reviews) > 0) {
     ?>
@@ -153,41 +154,42 @@
       } else print("<p class='error-text'>Отзывов еще нет.</p>");
     ?>
     <div class="reviews-add-container">
-      <a href="/" class="reviews-add">Написать отзыв</a>
+      <a href="#" id="form-toggle" class="reviews-add">Написать отзыв</a>
     </div>
-    <div class="reviews-add-form">
-      <form action='/' method='post'>
+    <div id="form-container" class="reviews-add-form" style="display: none;">
+      <span id="form-success" class="reviews-add-form-success" style="display: none;">Отзыв отправлен на модерацию!</span>
+      <form id="form" action="/" method="post">
         <table class="reviews-add-form-table">
           <tr>
               <td class="reviews-add-form-inputname">Ваше имя:</td>
-              <td><input class="reviews-add-form-smallinput" type="text"></td>
+              <td><input class="reviews-add-form-smallinput" type="text" name="username"></td>
           </tr>
           <tr>
               <td class="reviews-add-form-inputname">E-Mail (необязательно):</td>
-              <td><input class="reviews-add-form-smallinput" type="text"></td>
+              <td><input class="reviews-add-form-smallinput" type="email" name="email"></td>
           </tr>
           <tr>
               <td class="reviews-add-form-inputname">Телефон (необязательно):</td>
-              <td><input class="reviews-add-form-smallinput" type="text"></td>
+              <td><input class="reviews-add-form-smallinput" type="phone" name="phone"></td>
           </tr>
           <tr>
               <td class="reviews-add-form-inputname">Оценка:</td>
               <td>
                 <div class="reviews-add-form-stars">
-                  <input type="radio" id="reviews-add-form-star5" name="rate" value="5" checked /><label for="reviews-add-form-star5">★</label>
-                  <input type="radio" id="reviews-add-form-star4" name="rate" value="4" /><label for="reviews-add-form-star4">★</label>
-                  <input type="radio" id="reviews-add-form-star3" name="rate" value="3" /><label for="reviews-add-form-star3">★</label>
-                  <input type="radio" id="reviews-add-form-star2" name="rate" value="2" /><label for="reviews-add-form-star2">★</label>
-                  <input type="radio" id="reviews-add-form-star1" name="rate" value="1" /><label for="reviews-add-form-star1">★</label>
+                  <input type="radio" id="reviews-add-form-star5" name="rating" value="5" checked /><label for="reviews-add-form-star5">★</label>
+                  <input type="radio" id="reviews-add-form-star4" name="rating" value="4" /><label for="reviews-add-form-star4">★</label>
+                  <input type="radio" id="reviews-add-form-star3" name="rating" value="3" /><label for="reviews-add-form-star3">★</label>
+                  <input type="radio" id="reviews-add-form-star2" name="rating" value="2" /><label for="reviews-add-form-star2">★</label>
+                  <input type="radio" id="reviews-add-form-star1" name="rating" value="1" /><label for="reviews-add-form-star1">★</label>
                 </div>
               </td>
           </tr>
         </table>
-        <textarea class="reviews-add-form-biginput" placeholder="Текст отзыва" rows="5"></textarea>
+        <textarea class="reviews-add-form-biginput" placeholder="Текст отзыва" rows="5" name="review"></textarea>
 
         <div class="reviews-add-form-bottombar">
-          <span class="reviews-add-form-comment">Ваш отзыв будет опубликован сразу после прохождения модерации</span>
-          <input class="reviews-add-form-button" type="submit"></input>
+          <span id="form-comment" class="reviews-add-form-comment">Ваш отзыв будет опубликован после прохождения модерации</span>
+          <input class="reviews-add-form-button" type="submit" name="button"></input>
         </div>
       </form>
     </div>

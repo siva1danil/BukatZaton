@@ -1,15 +1,17 @@
 <?php
-  error_reporting(0);
+  // error_reporting(0);
+  // ini_set('display_errors', 'Off');
+  
   $conn;
 
   function init() {
     global $conn;
 
     // Load credentials
-    if (!file_exists("lib/config.php")) {
+    if (!file_exists(__DIR__ . "/config.php")) {
       return "Error: <lib/config.php> not found, please create a new one using the following template:\n" . "<?php\n  \$HOSTNAME = \"127.0.0.1:3306\";\n  \$USERNAME = \"root\";\n  \$PASSWORD = \"\";\n?>";
     }
-    include "lib/config.php";
+    include (__DIR__ . "/config.php");
     if (!isset($HOSTNAME) || !isset($USERNAME) || !isset($PASSWORD))
       return "Error: define <\$HOSTNAME / \$USERNAME / \$PASSWORD> in your <lib/config.php>";
 
