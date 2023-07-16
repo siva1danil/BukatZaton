@@ -2,7 +2,7 @@
   include (__DIR__ . "/../lib/database.php");
 
   if (!is_null(init())) {
-    printf('{ "error": "%s" }', "Ошибка базы данных, обратитесь к администратору");
+    printf(json_encode([ "error" => "Ошибка базы данных, обратитесь к администратору" ]));
   } else {
     $json = file_get_contents('php://input');
     $data = json_decode($json, true);
@@ -19,9 +19,9 @@
         preg_match('/^(\s+)?$/', $data["phone"]) != FALSE ? "0" : $data["phone"],
         $data["review"],
         $data["rating"]);
-      printf('{ "error": %s }', "null");
+      printf(json_encode([ "error" => NULL ]));
     } else {
-      printf('{ "error": "%s" }', "Некоторые поля заполнены неверно");
+      printf(json_encode([ "error" => "Некоторые поля заполнены неверно" ]));
     }
   }
 ?>

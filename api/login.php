@@ -6,13 +6,13 @@
   $data = json_decode($json, true);
 
   if(is_null($data)) {
-    printf('{ "error": "%s" }', "Неверный формат запроса");
+    printf(json_encode([ "error" => "Неверный формат запроса" ]));
   } else {
     $status = login($data["username"], $data["password"]);
     if(is_null($status)) {
-      printf('{ "error": %s }', "null");
+      printf(json_encode([ "error" => NULL ]));
       $_SESSION["logged_in"] = TRUE;
     } else {
-      printf('{ "error": "%s" }', $status);
+      printf(json_encode([ "error" => $status ]));
     }
   }
