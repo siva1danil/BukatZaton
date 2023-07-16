@@ -8,7 +8,7 @@
     $data = json_decode($json, true);
     
     $validUsername = strlen($data["username"]) <= 64 && preg_match('/^(\s+)?$/', $data["username"]) == FALSE;
-    $validEmail = strlen($data["email"]) <= 64 && preg_match('/^(\s+)?$/', $data["email"]) != FALSE || preg_match('/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/', $data["email"]) != FALSE;
+    $validEmail = strlen($data["email"]) <= 64 && (preg_match('/^(\s+)?$/', $data["email"]) != FALSE || preg_match('/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/', $data["email"]) != FALSE);
     $validPhone = preg_match('/^(\s+)?$/', $data["phone"]) != FALSE || count(preg_replace("\D", "", $data["phone"])) == 11;
     $validRating = $data["rating"] >= 1 && $data["rating"] <= 5;
     $validReview = preg_match('/^(\s+)?$/', $data["review"]) == FALSE;
