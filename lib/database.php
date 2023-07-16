@@ -1,16 +1,16 @@
 <?php
-  // error_reporting(0);
-  // ini_set('display_errors', 'Off');
+  error_reporting(0);
+  ini_set('display_errors', 'Off');
   
   $conn;
 
   function login($username, $password) {
     if (!file_exists(__DIR__ . "/config.php")) {
-      return "Error: <lib/config.php> not found, please create a new one using the following template:\n" . "<?php\n  \$ADMIN_USERNAME = \"admin\";\n  \$ADMIN_PASSWORD = \"admin\";\n  \$HOSTNAME = \"127.0.0.1:3306\";\n  \$USERNAME = \"root\";\n  \$PASSWORD = \"\";\n?>";
+      return "Ошибка: файл <lib/config.php> не найден, создайте его по шаблону:\n" . "<?php\n  \$ADMIN_USERNAME = \"admin\";\n  \$ADMIN_PASSWORD = \"admin\";\n  \$HOSTNAME = \"127.0.0.1:3306\";\n  \$USERNAME = \"root\";\n  \$PASSWORD = \"\";\n?>";
     }
     include (__DIR__ . "/config.php");
     if (!isset($ADMIN_USERNAME) || !isset($ADMIN_PASSWORD))
-      return "Error: define <\$ADMIN_USERNAME / \$ADMIN_PASSWORD > in your <lib/config.php>";
+      return "Ошибка: в файле <lib/config.php> не указаны <\$ADMIN_USERNAME / \$ADMIN_PASSWORD >";
     
     if($username != $ADMIN_USERNAME || $password != $ADMIN_PASSWORD)
       return "Wrong password";
@@ -23,29 +23,29 @@
 
     // Load credentials
     if (!file_exists(__DIR__ . "/config.php")) {
-      return "Error: <lib/config.php> not found, please create a new one using the following template:\n" . "<?php\n  \$ADMIN_USERNAME = \"admin\";\n  \$ADMIN_PASSWORD = \"admin\";\n  \$HOSTNAME = \"127.0.0.1:3306\";\n  \$USERNAME = \"root\";\n  \$PASSWORD = \"\";\n?>";
+      return "Ошибка: файл <lib/config.php> не найден, создайте его по шаблону:\n" . "<?php\n  \$ADMIN_USERNAME = \"admin\";\n  \$ADMIN_PASSWORD = \"admin\";\n  \$HOSTNAME = \"127.0.0.1:3306\";\n  \$USERNAME = \"root\";\n  \$PASSWORD = \"\";\n?>";
     }
     include (__DIR__ . "/config.php");
     if (!isset($HOSTNAME) || !isset($USERNAME) || !isset($PASSWORD))
-      return "Error: define <\$HOSTNAME / \$USERNAME / \$PASSWORD> in your <lib/config.php>";
+      return "Ошибка: в файле <lib/config.php> не указаны <\$HOSTNAME / \$USERNAME / \$PASSWORD>";
 
     // Connect to MySQL, handle any errors
     $conn = new mysqli($HOSTNAME, $USERNAME, $PASSWORD);
 
     if ($conn->connect_error)
-      return "Error: Connection failed: " . $conn->connect_error;
+      return "Ошибка подключения к базе данных: " . $conn->connect_error;
 
     if (!$conn->set_charset("utf8mb4"))
-      return "Error: Cannot change charset: " . $conn->error;
+      return "Ошибка изменения кодировки: " . $conn->error;
 
     // Create the database, handle any errors
     $sql = "CREATE DATABASE IF NOT EXISTS zaton CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci";
     if (!$conn->query($sql))
-      return "Error: Cannot create database: " . $conn->error;
+      return "Ошибка создания базы данных: " . $conn->error;
 
     // Switch to our database, handle any errors
     if (!$conn->select_db("zaton"))
-      return "Error: Cannot switch database: " . $conn->error;
+      return "Ошибка переключения базы данных: " . $conn->error;
 
     // Create the reviews table, handle any errors
     $sql = "CREATE TABLE IF NOT EXISTS reviews(
@@ -58,7 +58,7 @@
       review TEXT NOT NULL,
       rating TINYINT UNSIGNED NOT NULL) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci";
     if (!$conn->query($sql))
-      return "Error: Cannot create table: " . $conn->error;
+      return "Ошибка создания таблицы: " . $conn->error;
     
     return NULL;
   }
@@ -82,10 +82,10 @@
     $sql = "INSERT INTO reviews (username, email, phone, review, rating) VALUES (?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
     if (!$stmt)
-      die("Error: Cannot prepare statement: " . $conn->error);
+      die("Ошибка подготовки запроса: " . $conn->error);
     $stmt->bind_param("ssiis", $username, $email, $phone, $review, $rating);
     if (!$stmt->execute())
-      die("Error: Cannot execute statement: " . $stmt->error);
+      die("Ошибка выполнения запроса: " . $stmt->error);
     $stmt->close();
   }
 
@@ -95,10 +95,10 @@
     $sql = "UPDATE reviews SET username = ?, email = ?, phone = ?, review = ?, rating = ? WHERE id = ?";
     $stmt = $conn->prepare($sql);
     if (!$stmt)
-      die("Error: Cannot prepare statement: " . $conn->error);
+      die("Ошибка подготовки запроса: " . $conn->error);
     $stmt->bind_param("ssiisi", $username, $email, $phone, $review, $rating, $id);
     if (!$stmt->execute())
-      die("Error: Cannot execute statement: " . $stmt->error);
+      die("Ошибка выполнения запроса: " . $stmt->error);
     $stmt->close();
   }
 
@@ -108,10 +108,10 @@
     $sql = "UPDATE reviews SET public = ? WHERE id = ?";
     $stmt = $conn->prepare($sql);
     if (!$stmt)
-      die("Error: Cannot prepare statement: " . $conn->error);
+      die("Ошибка подготовки запроса: " . $conn->error);
     $stmt->bind_param("ii", $value, $id);
     if (!$stmt->execute())
-      die("Error: Cannot execute statement: " . $stmt->error);
+      die("Ошибка выполнения запроса: " . $stmt->error);
     $stmt->close();
   }
 
