@@ -4,12 +4,26 @@
   
   $conn;
 
+  function login($username, $password) {
+    if (!file_exists(__DIR__ . "/config.php")) {
+      return "Error: <lib/config.php> not found, please create a new one using the following template:\n" . "<?php\n  \$ADMIN_USERNAME = \"admin\";\n  \$ADMIN_PASSWORD = \"admin\";\n  \$HOSTNAME = \"127.0.0.1:3306\";\n  \$USERNAME = \"root\";\n  \$PASSWORD = \"\";\n?>";
+    }
+    include (__DIR__ . "/config.php");
+    if (!isset($ADMIN_USERNAME) || !isset($ADMIN_PASSWORD))
+      return "Error: define <\$ADMIN_USERNAME / \$ADMIN_PASSWORD > in your <lib/config.php>";
+    
+    if($username != $ADMIN_USERNAME || $password != $ADMIN_PASSWORD)
+      return "Wrong password";
+    else
+      return NULL;
+  }
+
   function init() {
     global $conn;
 
     // Load credentials
     if (!file_exists(__DIR__ . "/config.php")) {
-      return "Error: <lib/config.php> not found, please create a new one using the following template:\n" . "<?php\n  \$HOSTNAME = \"127.0.0.1:3306\";\n  \$USERNAME = \"root\";\n  \$PASSWORD = \"\";\n?>";
+      return "Error: <lib/config.php> not found, please create a new one using the following template:\n" . "<?php\n  \$ADMIN_USERNAME = \"admin\";\n  \$ADMIN_PASSWORD = \"admin\";\n  \$HOSTNAME = \"127.0.0.1:3306\";\n  \$USERNAME = \"root\";\n  \$PASSWORD = \"\";\n?>";
     }
     include (__DIR__ . "/config.php");
     if (!isset($HOSTNAME) || !isset($USERNAME) || !isset($PASSWORD))
