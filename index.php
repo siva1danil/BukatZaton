@@ -136,7 +136,7 @@
     <?php
       include (__DIR__ . "/lib/database.php");
       if (is_null(init())) {
-        $reviews = get_reviews(false);
+        $reviews = get_reviews(false, 100, 1);
         if (count($reviews) > 0) {
     ?>
     <ul class="bxslider">

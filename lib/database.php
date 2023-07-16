@@ -63,17 +63,34 @@
     return NULL;
   }
 
-  function get_reviews($show_non_public = false) {
+  function get_reviews($show_non_public = false, $results_per_page = 10, $page = 1) {
     global $conn;
 
-    $sql = "SELECT * FROM reviews";
-    if (!$show_non_public)
-      $sql .= " WHERE public = 1";
-    $result = $conn->query($sql);
-    if ($result->num_rows > 0)
-      return $result->fetch_all(MYSQLI_ASSOC);
-    else
-      return array();
+    $start_limit = ($page - 1) * $results_per_page;
+
+    if ($show_non_public) {
+        $sql = "SELECT * FROM reviews LIMIT ?, ?";
+        $stmt = $conn->prepare($sql);
+        if (!$stmt)
+          die("Ошибка подготовки запроса: " . $conn->error);
+        $stmt->bind_param("ii", $start_limit, $results_per_page);
+    } else {
+        $sql = "SELECT * FROM reviews WHERE public = 1 LIMIT ?, ?";
+        $stmt = $conn->prepare($sql);
+        if (!$stmt)
+          die("Ошибка подготовки запроса: " . $conn->error);
+        $stmt->bind_param("ii", $start_limit, $results_per_page);
+    }
+
+    if (!$stmt->execute())
+      die("Ошибка выполнения запроса: " . $stmt->error);
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        return $result->fetch_all(MYSQLI_ASSOC);
+    } else {
+        return array();
+    }
   }
 
   function add_review($username, $email, $phone, $review, $rating) {
