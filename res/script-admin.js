@@ -43,6 +43,7 @@ window.addEventListener('load', () => {
             editSave: document.getElementById('edit-save'),
         };
         const Actions = {
+            prettyPrintPhone: phone => `+${~~(phone / 10000000000)} ${~~(phone % 10000000000 / 10000000)} ${~~(phone % 10000000 / 10000)} ${~~(phone % 10000)}`,
             setReviews: reviews => {
                 UI.reviewsPublic.innerText = '';
                 UI.reviewsPrivate.innerText = '';
@@ -54,7 +55,7 @@ window.addEventListener('load', () => {
                         element.getElementsByClassName('review-stars')[0].children[i].style.color = 'transparent';
                     element.getElementsByClassName('review-name')[0].innerText = review.username;
                     if(review.phone != 0)
-                        element.getElementsByClassName('review-phone')[0].innerText = review.phone;
+                        element.getElementsByClassName('review-phone')[0].innerText = Actions.prettyPrintPhone(review.phone);
                     if(review.email != "")
                         element.getElementsByClassName('review-email')[0].innerText = review.email;
                     element.getElementsByClassName('review-text')[0].innerText = review.review;
