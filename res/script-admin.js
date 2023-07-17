@@ -68,7 +68,7 @@ window.addEventListener('load', () => {
 
                         await API.setPublicity(review.id, !review.public)
                             .then(() => Actions.reload())
-                            .catch(error => alert(error));
+                            .catch(error => alert(error.message));
 
                         event.target.disabled = false;
                         element.style.opacity = 1.0;
@@ -87,7 +87,7 @@ window.addEventListener('load', () => {
                                 await API.editReview(review).then(() => Actions.reload());
                                 break;
                             } catch(error) {
-                                alert(error);
+                                alert(error.message);
                             };
                         }
 
@@ -101,7 +101,7 @@ window.addEventListener('load', () => {
 
                         await API.deleteReview(review.id)
                             .then(() => Actions.reload())
-                            .catch(error => alert(error));
+                            .catch(error => alert(error.message));
 
                         event.target.disabled = false;
                         element.style.opacity = 1.0;
@@ -188,7 +188,7 @@ window.addEventListener('load', () => {
 
             await API.logout()
                 .then(() => location.reload())
-                .catch(error => alert(error));
+                .catch(error => alert(error.message));
             
             UI.logout.disabled = false;
         });
