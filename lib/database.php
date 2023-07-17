@@ -132,4 +132,17 @@
     $stmt->close();
   }
 
+  function delete_review($id) {
+    global $conn;
+
+    $sql = "DELETE FROM reviews WHERE id = ?";
+    $stmt = $conn->prepare($sql);
+    if (!$stmt)
+      die("Ошибка подготовки запроса: " . $conn->error);
+    $stmt->bind_param("i", $id);
+    if (!$stmt->execute())
+      die("Ошибка выполнения запроса: " . $stmt->error);
+    $stmt->close();
+  }
+
 ?>
