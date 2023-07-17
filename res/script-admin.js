@@ -194,6 +194,7 @@ window.addEventListener('load', () => {
         });
 
         Actions.reload()
+            .then(() => fatal.innerText = '')
             .catch(error => fatal.innerText = error.message);
     }
 });

@@ -19,7 +19,7 @@
         <a id="button-logout" class="header-logout" href="#">Выход</a>
       </div>
 
-      <span id="fatal" class="fatal"></span>
+      <span id="fatal" class="fatal">Загрузка...</span>
 
       <span class="reviews-title">Опубликованные отзывы</span>
       <div id="reviews-public" class="reviews"></div>
