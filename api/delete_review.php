@@ -5,8 +5,9 @@
   if($_SESSION["logged_in"] != TRUE)
     printf(json_encode([ "error" => "Вы не авторизованы" ]));
   else {
-    if (!is_null(init())) {
-      printf(json_encode([ "error" => "Ошибка базы данных, обратитесь к администратору" ]));
+    $init = init();
+    if (!is_null($init)) {
+      printf(json_encode([ "error" => $init ]));
     } else {
       $json = file_get_contents('php://input');
       $data = json_decode($json, true);
