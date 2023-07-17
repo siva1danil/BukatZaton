@@ -13,7 +13,7 @@
       return "Ошибка: в файле <lib/config.php> не указаны <\$ADMIN_USERNAME / \$ADMIN_PASSWORD >";
     
     if($username != $ADMIN_USERNAME || $password != $ADMIN_PASSWORD)
-      return "Wrong password";
+      return "Неверный пароль";
     else
       return NULL;
   }
