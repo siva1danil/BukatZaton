@@ -58,6 +58,7 @@ html, body {
 .login-window-status {
     flex: 1 1 100%;
     color: #fd9999;
+    user-select: text;
 }
 
 .wrap {
@@ -167,6 +168,14 @@ html, body {
 }
 .review-action:hover {
     color: #ff4444;
+}
+.fatal {
+    display: block;
+    margin: 20px;
+    font-size: 14px;
+}
+.fatal:not(:empty) ~ * {
+    display: none !important;
 }
 
 .edit-background {

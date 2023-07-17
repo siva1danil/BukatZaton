@@ -33,6 +33,7 @@ window.addEventListener('load', () => {
         });
     } else {
         const UI = {
+            fatal: document.getElementById('fatal'),
             reviewTemplate: document.getElementById('template-review'),
             logout: document.getElementById('button-logout'),
             reviewsPublic: document.getElementById('reviews-public'),
@@ -40,7 +41,7 @@ window.addEventListener('load', () => {
             editBackground: document.getElementById('edit-background'),
             editForm: document.getElementById('edit-form'),
             editCancel: document.getElementById('edit-cancel'),
-            editSave: document.getElementById('edit-save'),
+            editSave: document.getElementById('edit-save')
         };
         const Actions = {
             prettyPrintPhone: phone => `+${~~(phone / 10000000000)} ${~~(phone % 10000000000 / 10000000)} ${~~(phone % 10000000 / 10000)} ${~~(phone % 10000)}`,
@@ -78,8 +79,9 @@ window.addEventListener('load', () => {
                         element.style.opacity = 0.5;
 
                         while(true) {
-                            review = await Actions.edit(review);
-                            if(review == null) break;
+                            newReview = await Actions.edit(review);
+                            if(newReview == null) break;
+                            else review = newReview;
 
                             try {
                                 await API.editReview(review).then(() => Actions.reload());
@@ -191,6 +193,7 @@ window.addEventListener('load', () => {
             UI.logout.disabled = false;
         });
 
-        Actions.reload();
+        Actions.reload()
+            .catch(error => fatal.innerText = error.message);
     }
 });
