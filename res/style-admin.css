@@ -130,6 +130,7 @@ html, body {
     display: block;
 }
 .review {
+    width: calc(50% - 10px - 10px);
     flex: 0 0 calc(50% - 10px - 10px);
     padding: 10px;
     border: 1px solid #cccccc;
@@ -160,6 +161,8 @@ html, body {
     display: block;
     margin: 10px 0 10px 0;
     user-select: text;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 .review-action {
     margin: 0 10px 0 0;

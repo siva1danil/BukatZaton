@@ -1,3 +1,8 @@
+.otz_p3 {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
 .reviews-add-container {
     text-align: center;
     margin: 0 0 40px 0;
