@@ -157,6 +157,10 @@
 
     <p class="error-text">Отзывов еще нет.</p>
 
+    <?php } ?>
+    
+    <?php if (is_null($reviews[1])) { ?>
+
     <div class="reviews-add-container">
       <a href="#" id="form-toggle" class="reviews-add">Написать отзыв</a>
     </div>
