@@ -100,7 +100,7 @@
     $stmt = $conn->prepare($sql);
     if (!$stmt)
       die("Ошибка подготовки запроса: " . $conn->error);
-    $stmt->bind_param("ssiis", $username, $email, $phone, $review, $rating);
+    $stmt->bind_param("ssisi", $username, $email, $phone, $review, $rating);
     if (!$stmt->execute())
       die("Ошибка выполнения запроса: " . $stmt->error);
     $stmt->close();
