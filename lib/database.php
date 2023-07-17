@@ -113,7 +113,7 @@
     $stmt = $conn->prepare($sql);
     if (!$stmt)
       die("Ошибка подготовки запроса: " . $conn->error);
-    $stmt->bind_param("ssiisi", $username, $email, $phone, $review, $rating, $id);
+    $stmt->bind_param("ssisii", $username, $email, $phone, $review, $rating, $id);
     if (!$stmt->execute())
       die("Ошибка выполнения запроса: " . $stmt->error);
     $stmt->close();
