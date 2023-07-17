@@ -14,7 +14,7 @@
         if(is_null($data)) {
             printf(json_encode([ "error" => "Неверный формат запроса" ]));
         } else {
-            $validId = count(preg_replace("\D", "", $data["id"])) > 0;
+            $validId = strlen(preg_replace("\D", "", $data["id"])) > 0;
             $validUsername = strlen($data["username"]) <= 64 && preg_match('/^(\s+)?$/', $data["username"]) == FALSE;
             $validEmail = strlen($data["email"]) <= 64 && (preg_match('/^(\s+)?$/', $data["email"]) != FALSE || preg_match('/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/', $data["email"]) != FALSE);
             $validPhone = preg_match('/^(\s+)?$/', $data["phone"]) != FALSE || strlen(preg_replace('/\D/', "", $data["phone"])) == 11;
