@@ -9,10 +9,6 @@
     printf(json_encode([ "error" => "Неверный формат запроса" ]));
   } else {
     $status = login($data["username"], $data["password"]);
-    if(is_null($status)) {
-      printf(json_encode([ "error" => NULL ]));
-      $_SESSION["logged_in"] = TRUE;
-    } else {
-      printf(json_encode([ "error" => $status ]));
-    }
+    $_SESSION["logged_in"] = is_null($status);
+    printf(json_encode([ "error" => $status ]));
   }

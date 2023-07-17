@@ -6,12 +6,12 @@
     printf(json_encode([ "error" => "Вы не авторизованы" ]));
   else {
     if (!is_null(init())) {
-        printf(json_encode([ "error" => "Ошибка базы данных, обратитесь к администратору" ]));
+      printf(json_encode([ "error" => "Ошибка базы данных, обратитесь к администратору" ]));
     } else {
-        $page = isset($_GET["page"]) ? intval(preg_replace('/\D/', "", $_GET["page"])) : 1;
-        $page = $page > 1 ? $page : 1;
-        $reviews = get_reviews(TRUE, 100, $page);
-        printf(json_encode([ "error" => NULL, "data" => $reviews ]));
+      $page = isset($_GET["page"]) ? intval(preg_replace('/\D/', "", $_GET["page"])) : 1;
+      $page = $page > 1 ? $page : 1;
+      $reviews = get_reviews(TRUE, 100, $page);
+      printf(json_encode([ "error" => $reviews[1], "data" => $reviews[0] ]));
     }
   }
 ?>

@@ -14,8 +14,8 @@
       if(is_null($data)) {
         printf(json_encode([ "error" => "Неверный формат запроса" ]));
       } else if (strlen(preg_replace("/\D/", "", $data["id"])) > 0) {
-        delete_review(intval(preg_replace("/\D/", "", $data["id"])));
-        printf(json_encode([ "error" => NULL ]));
+        $result = delete_review(intval(preg_replace("/\D/", "", $data["id"])));
+        printf(json_encode([ "error" => $result ]));
       } else {
         printf(json_encode([ "error" => "Неверно указан ID" ]));
       }

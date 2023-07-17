@@ -72,24 +72,24 @@
         $sql = "SELECT * FROM reviews LIMIT ?, ?";
         $stmt = $conn->prepare($sql);
         if (!$stmt)
-          die("Ошибка подготовки запроса: " . $conn->error);
+          return [ [], "Ошибка подготовки запроса: " . $conn->error ];
         $stmt->bind_param("ii", $start_limit, $results_per_page);
     } else {
         $sql = "SELECT * FROM reviews WHERE public = 1 LIMIT ?, ?";
         $stmt = $conn->prepare($sql);
         if (!$stmt)
-          die("Ошибка подготовки запроса: " . $conn->error);
+          return [ [], "Ошибка подготовки запроса: " . $conn->error ];
         $stmt->bind_param("ii", $start_limit, $results_per_page);
     }
 
     if (!$stmt->execute())
-      die("Ошибка выполнения запроса: " . $stmt->error);
+      return [ [], "Ошибка выполнения запроса: " . $stmt->error ];
     $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
-        return $result->fetch_all(MYSQLI_ASSOC);
+        return [ $result->fetch_all(MYSQLI_ASSOC), null ];
     } else {
-        return array();
+        return [ [], null ];
     }
   }
 
@@ -99,11 +99,12 @@
     $sql = "INSERT INTO reviews (username, email, phone, review, rating) VALUES (?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
     if (!$stmt)
-      die("Ошибка подготовки запроса: " . $conn->error);
+      return "Ошибка подготовки запроса: " . $conn->error;
     $stmt->bind_param("ssisi", $username, $email, $phone, $review, $rating);
     if (!$stmt->execute())
-      die("Ошибка выполнения запроса: " . $stmt->error);
+      return "Ошибка выполнения запроса: " . $stmt->error;
     $stmt->close();
+    return null;
   }
 
   function edit_review($id, $username, $email, $phone, $review, $rating) {
@@ -112,11 +113,12 @@
     $sql = "UPDATE reviews SET username = ?, email = ?, phone = ?, review = ?, rating = ? WHERE id = ?";
     $stmt = $conn->prepare($sql);
     if (!$stmt)
-      die("Ошибка подготовки запроса: " . $conn->error);
+      return "Ошибка подготовки запроса: " . $conn->error;
     $stmt->bind_param("ssisii", $username, $email, $phone, $review, $rating, $id);
     if (!$stmt->execute())
-      die("Ошибка выполнения запроса: " . $stmt->error);
+      return "Ошибка выполнения запроса: " . $stmt->error;
     $stmt->close();
+    return null;
   }
 
   function set_review_publicity($id, $value) {
@@ -125,11 +127,12 @@
     $sql = "UPDATE reviews SET public = ? WHERE id = ?";
     $stmt = $conn->prepare($sql);
     if (!$stmt)
-      die("Ошибка подготовки запроса: " . $conn->error);
+      return "Ошибка подготовки запроса: " . $conn->error;
     $stmt->bind_param("ii", $value, $id);
     if (!$stmt->execute())
-      die("Ошибка выполнения запроса: " . $stmt->error);
+      return "Ошибка выполнения запроса: " . $stmt->error;
     $stmt->close();
+    return null;
   }
 
   function delete_review($id) {
@@ -138,11 +141,12 @@
     $sql = "DELETE FROM reviews WHERE id = ?";
     $stmt = $conn->prepare($sql);
     if (!$stmt)
-      die("Ошибка подготовки запроса: " . $conn->error);
+      return "Ошибка подготовки запроса: " . $conn->error;
     $stmt->bind_param("i", $id);
     if (!$stmt->execute())
-      die("Ошибка выполнения запроса: " . $stmt->error);
+      return "Ошибка выполнения запроса: " . $stmt->error;
     $stmt->close();
+    return null;
   }
 
 ?>

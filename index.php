@@ -133,26 +133,30 @@
   <div style="clear:both"></div>
   <div class="wrapper">
     <div class="oth_title">Отзывы</div>
+
     <?php
       include (__DIR__ . "/lib/database.php");
-      if (is_null(init())) {
-        $reviews = get_reviews(false, 100, 1);
-        if (count($reviews) > 0) {
+      $init = init();
+      $reviews = is_null($init) ? get_reviews(false, 100, 1) : [ [], $init ];
+      if (is_null($reviews[1]) && count($reviews[0]) > 0) {
     ?>
+
     <ul class="bxslider">
       <?php
-        for($i = 0; $i < count($reviews); $i++) {
+        for($i = 0; $i < count($reviews[0]); $i++) {
           printf("<li>");
-          printf('<p class="otz_p1">%s</p>', $reviews[$i]["date"]);
-          printf('<p class="otz_p2">%s</p>', $reviews[$i]["username"]);
-          printf('<p class="otz_p3">%s</p>', $reviews[$i]["review"]);
+          printf('<p class="otz_p1">%s</p>', $reviews[0][$i]["date"]);
+          printf('<p class="otz_p2">%s</p>', $reviews[0][$i]["username"]);
+          printf('<p class="otz_p3">%s</p>', $reviews[0][$i]["review"]);
           printf("</li>");
         }
       ?>
     </ul>
-    <?php
-      } else print("<p class='error-text'>Отзывов еще нет.</p>");
-    ?>
+
+    <?php } else if(is_null($reviews[1]) && count($reviews[0]) == 0) { ?>
+
+    <p class="error-text">Отзывов еще нет.</p>
+
     <div class="reviews-add-container">
       <a href="#" id="form-toggle" class="reviews-add">Написать отзыв</a>
     </div>
@@ -193,11 +197,12 @@
         </div>
       </form>
     </div>
-    <?php
-      } else {
-        print("<p class='error-text'>Не удалось загрузить отзывы, повторите попытку позже.</p>");
-      }
-    ?>
+
+    <?php } else { ?>
+
+    <p class="error-text">Не удалось загрузить отзывы, повторите попытку позже.</p>
+
+    <?php } ?>
   </div>
   <div style="clear:both"></div>
   <div class="wrapper">
