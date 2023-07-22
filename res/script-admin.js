@@ -36,6 +36,12 @@ window.addEventListener('load', () => {
             fatal: document.getElementById('fatal'),
             reviewTemplate: document.getElementById('template-review'),
             logout: document.getElementById('button-logout'),
+            tabHeaderPublic: document.getElementById('tabs-header-public'),
+            tabHeaderPrivate: document.getElementById('tabs-header-private'),
+            tabContentPublic: document.getElementById('tabs-content-public'),
+            tabContentPrivate: document.getElementById('tabs-content-private'),
+            countPublic: document.getElementById('reviews-public-count'),
+            countPrivate: document.getElementById('reviews-private-count'),
             reviewsPublic: document.getElementById('reviews-public'),
             reviewsPrivate: document.getElementById('reviews-private'),
             editBackground: document.getElementById('edit-background'),
@@ -112,6 +118,9 @@ window.addEventListener('load', () => {
                     else
                         UI.reviewsPrivate.appendChild(element);
                 }
+
+                UI.countPublic.innerText = reviews.filter(item => item.public).length;
+                UI.countPrivate.innerText = reviews.filter(item => !item.public).length;
             },
             reload: async () => {
                 await API.getReviews().then(data => Actions.setReviews(data));
@@ -140,7 +149,15 @@ window.addEventListener('load', () => {
                         phone: UI.editForm.phone.value, rating: UI.editForm.rating.value,
                         review: UI.editForm.review.value });
                 });
-            })
+            }),
+            setTab(headers, contents, header, content) {
+                for(let header of headers)
+                    header.classList.remove('tabs-header-entry-active');
+                for(let content of contents)
+                    content.classList.remove('tab-active');
+                header.classList.add('tabs-header-entry-active');
+                content.classList.add('tab-active');
+            }
         };
         const API = {
             logout: async () => {
@@ -192,9 +209,19 @@ window.addEventListener('load', () => {
             
             UI.logout.disabled = false;
         });
+        UI.tabHeaderPublic.addEventListener('click', event => {
+            event.preventDefault();
+            Actions.setTab([ UI.tabHeaderPublic, UI.tabHeaderPrivate ], [ UI.tabContentPublic, UI.tabContentPrivate ], UI.tabHeaderPublic, UI.tabContentPublic);
+        });
+        UI.tabHeaderPrivate.addEventListener('click', event => {
+            event.preventDefault();
+            Actions.setTab([ UI.tabHeaderPublic, UI.tabHeaderPrivate ], [ UI.tabContentPublic, UI.tabContentPrivate ], UI.tabHeaderPrivate, UI.tabContentPrivate);
+        });
 
         Actions.reload()
-            .then(() => fatal.innerText = '')
-            .catch(error => fatal.innerText = error.message);
+            .then(() => {
+                Actions.setTab([ UI.tabHeaderPublic, UI.tabHeaderPrivate ], [ UI.tabContentPublic, UI.tabContentPrivate ], UI.tabHeaderPublic, UI.tabContentPublic);
+                fatal.innerText = '';
+            }).catch(error => fatal.innerText = error.message);
     }
 });

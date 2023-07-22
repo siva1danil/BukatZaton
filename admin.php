@@ -21,12 +21,20 @@
 
       <span id="fatal" class="fatal">Загрузка...</span>
 
-      <span class="reviews-title">Опубликованные отзывы</span>
-      <div id="reviews-public" class="reviews"></div>
-      <span class="reviews-empty">Пусто</span>
-      <span class="reviews-title">Ожидают модерации</span>
-      <div id="reviews-private" class="reviews"></div>
-      <span class="reviews-empty">Пусто</span>
+      <div class="tabs-header">
+        <a href="#" id="tabs-header-public" class="tabs-header-entry tabs-header-entry-active">Опубликованные отзывы (<span id="reviews-public-count" class="tabs-header-count">...</span>)</a>
+        <a href="#" id="tabs-header-private" class="tabs-header-entry">Ожидают модерации (<span id="reviews-private-count" class="tabs-header-count">...</span>)</a>
+        <div class="tabs-header-fill"> </div>
+      </div>
+      <div class="tabs-content">
+        <div id="tabs-content-public" class="tab tab-active">
+          <div id="reviews-public" class="reviews"></div>
+          <span class="reviews-empty">Пусто</span>
+        </div>
+        <div id="tabs-content-private" class="tab">
+          <div id="reviews-private" class="reviews"></div>
+          <span class="reviews-empty">Пусто</span>
+        </div>
     </div>
   </div>
 
