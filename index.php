@@ -146,7 +146,7 @@
         for($i = 0; $i < count($reviews[0]); $i++) {
           printf("<li>");
           printf('<p class="otz_p1">%s</p>', $reviews[0][$i]["date"]);
-          printf('<p class="otz_p2">%s · %s</p>', $reviews[0][$i]["username"], str_repeat("★", $reviews[0][$i]["rating"]));
+          printf('<p class="otz_p2">%s · <span class="otz_p2_stars">%s</span></p>', $reviews[0][$i]["username"], str_repeat("★", $reviews[0][$i]["rating"]));
           printf('<p class="otz_p3">%s</p>', $reviews[0][$i]["review"]);
           printf("</li>");
         }
