@@ -6,7 +6,7 @@
 
   function login($username, $password) {
     if (!file_exists(__DIR__ . "/config.php")) {
-      return "Ошибка: файл <lib/config.php> не найден, создайте его по шаблону:\n" . "<?php\n  \$ADMIN_USERNAME = \"admin\";\n  \$ADMIN_PASSWORD = \"admin\";\n  \$HOSTNAME = \"127.0.0.1:3306\";\n  \$USERNAME = \"root\";\n  \$PASSWORD = \"\";\n?>";
+      return "Ошибка: файл <lib/config.php> не найден, создайте его по шаблону:\n" . "<?php\n  \$ADMIN_USERNAME = \"admin\";\n  \$ADMIN_PASSWORD = \"admin\";\n  $DATABASE = \"zaton\";\n  \$HOSTNAME = \"127.0.0.1:3306\";\n  \$USERNAME = \"root\";\n  \$PASSWORD = \"\";\n?>";
     }
     include (__DIR__ . "/config.php");
     if (!isset($ADMIN_USERNAME) || !isset($ADMIN_PASSWORD))
@@ -23,11 +23,11 @@
 
     // Load credentials
     if (!file_exists(__DIR__ . "/config.php")) {
-      return "Ошибка: файл <lib/config.php> не найден, создайте его по шаблону:\n" . "<?php\n  \$ADMIN_USERNAME = \"admin\";\n  \$ADMIN_PASSWORD = \"admin\";\n  \$HOSTNAME = \"127.0.0.1:3306\";\n  \$USERNAME = \"root\";\n  \$PASSWORD = \"\";\n?>";
+      return "Ошибка: файл <lib/config.php> не найден, создайте его по шаблону:\n" . "<?php\n  \$ADMIN_USERNAME = \"admin\";\n  \$ADMIN_PASSWORD = \"admin\";\n  $DATABASE = \"zaton\";\n  \$HOSTNAME = \"127.0.0.1:3306\";\n  \$USERNAME = \"root\";\n  \$PASSWORD = \"\";\n?>";
     }
     include (__DIR__ . "/config.php");
-    if (!isset($HOSTNAME) || !isset($USERNAME) || !isset($PASSWORD))
-      return "Ошибка: в файле <lib/config.php> не указаны <\$HOSTNAME / \$USERNAME / \$PASSWORD>";
+    if (!isset($DATABASE) || !isset($HOSTNAME) || !isset($USERNAME) || !isset($PASSWORD))
+      return "Ошибка: в файле <lib/config.php> не указаны <\$DATABASE / \$HOSTNAME / \$USERNAME / \$PASSWORD>";
 
     // Connect to MySQL, handle any errors
     $conn = new mysqli($HOSTNAME, $USERNAME, $PASSWORD);
@@ -39,12 +39,12 @@
       return "Ошибка изменения кодировки: " . $conn->error;
 
     // Create the database, handle any errors
-    $sql = "CREATE DATABASE IF NOT EXISTS zaton CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci";
+    $sql = "CREATE DATABASE IF NOT EXISTS $DATABASE CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci";
     if (!$conn->query($sql))
       return "Ошибка создания базы данных: " . $conn->error;
 
     // Switch to our database, handle any errors
-    if (!$conn->select_db("zaton"))
+    if (!$conn->select_db($DATABASE))
       return "Ошибка переключения базы данных: " . $conn->error;
 
     // Create the reviews table, handle any errors
